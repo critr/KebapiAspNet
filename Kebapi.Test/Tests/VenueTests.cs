@@ -23,6 +23,12 @@ namespace Kebapi.Test
     {
         private static HttpClient _client;
 
+        // Precision to which we are testing geo latitudes and longitudes.
+        // Our test data sourced from Google Maps has much higher precision, but
+        // generally 6 decimal places is recommended, which is what our db currently
+        // stores.
+        private const int GeoPrecision = 6;
+
         public VenueTests(WebServerFixture fixture)
         {
             _client = fixture.CreateClient();
@@ -87,8 +93,8 @@ namespace Kebapi.Test
 
             Assert.NotNull(response.ApiVenue);
             Assert.Equal(knownVenue.Address, response.ApiVenue.Address);
-            Assert.Equal(knownVenue.GeoLat, response.ApiVenue.GeoLat);
-            Assert.Equal(knownVenue.GeoLng, response.ApiVenue.GeoLng);
+            Assert.Equal(knownVenue.GeoLat, response.ApiVenue.GeoLat, GeoPrecision);
+            Assert.Equal(knownVenue.GeoLng, response.ApiVenue.GeoLng, GeoPrecision);
             Assert.Equal(knownVenue.Id, response.ApiVenue.Id);
             Assert.Equal(knownVenue.MainMediaPath, response.ApiVenue.MainMediaPath);
             Assert.Equal(knownVenue.Name, response.ApiVenue.Name);

@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Ignore\**" />
-    <Content Remove="Ignore\**" />
-    <EmbeddedResource Remove="Ignore\**" />
-    <None Remove="Ignore\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Services\AuthorisationService\MinimumAgeHandler.cs" />
     <Compile Remove="Services\AuthorisationService\MinimumAgeRequirement.cs" />
     <Compile Remove="TestController.cs" />

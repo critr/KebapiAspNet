@@ -103,6 +103,11 @@ namespace Kebapi.DataAccess.Sql
                     INSERT INTO [{DbTable.Venues}]
                         ([id], [name], [geo_lat], [geo_lng], [address], [rating], [main_media_id]) 
                     VALUES 
+                        -- The original pre-latitude/longitude grid coordinates are kept commented out
+                        -- below because they are referred to in related materials, and are a baseline
+                        -- for sourcing the latitudes and longitudes that replace them. (They are
+                        -- relative points from which latitudes and longitudes can be obtained.)
+                        /*
                         (1, 'Splendid Kebabs', 2, 1, '42 Bla Avenue, Madrid', 4, 1),
                         (2, 'The Kebaberie', 5, 2, '101 Santa Monica Way, Madrid', 3, 2),
                         (3, 'Meats Peeps', 7, 8, '276 Rita St, Madrid', 4, 3),
@@ -113,6 +118,17 @@ namespace Kebapi.DataAccess.Sql
                         (8, 'Star Kebab', 3, 6, '222 Crispy Crescent, Madrid', 4, 8),
                         (9, 'Kebab Slab', 5, 7, '5 Five Drive, Madrid', 3, 9),
                         (10, 'Turku Kebabi', 9, 0, '21B Baker Street, Madrid', 5, 10)
+                        */
+                        (1, 'Splendid Kebabs', 40.42795262756104, -3.7116578794243558, '42 Bla Avenue, Madrid', 4, 1),
+                        (2, 'The Kebaberie', 40.42207211170083, -3.6853078577300646, '101 Santa Monica Way, Madrid', 3, 2),
+                        (3, 'Meats Peeps', 40.38268004589479, -3.6687681075408354, '276 Rita St, Madrid', 4, 3),
+                        (4, 'The Rotisserie', 40.37640325727719, -3.719853607604965, '7 Rick Road, Madrid', 3, 4),
+                        (5, 'The Dirty One', 40.42847531520142, -3.6942342494440914, '10 Banana Place, Madrid', 5, 5),
+                        (6, 'Bodrum Conundrum', 40.40144154092246, -3.684389293040381, '55 High Five Drive, Madrid', 2, 6),
+                        (7, 'Korner Kebab', 40.4286059864768, -3.7027314877103286, '11b Indy Place, Madrid', 1, 7),
+                        (8, 'Star Kebab', 40.39588554537884, -3.702757060605783, '222 Crispy Crescent, Madrid', 4, 8),
+                        (9, 'Kebab Slab', 40.38980610735031, -3.6858484147628663, '5 Five Drive, Madrid', 3, 9),
+                        (10, 'Turku Kebabi', 40.43500856795563, -3.650975581906885, '21B Baker Street, Madrid', 5, 10)
                     ;
 
                     SET IDENTITY_INSERT {DbTable.Venues} OFF;

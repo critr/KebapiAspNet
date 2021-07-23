@@ -63,12 +63,14 @@ namespace Kebapi.Test
         /// </summary>
         public static readonly TheoryData<Dto.ApiVenue> KnownVenues = new()
         {
+            // NOTE: Original grid coordinates maintained in comments for reference
+            // since they are referred to in related materials.
             new() 
             { 
                 Id = 1, 
                 Name = "Splendid Kebabs", 
-                GeoLat = 2.000000M, 
-                GeoLng = 1.000000M, 
+                GeoLat = 40.42795262756104M,    //2.000000M, 
+                GeoLng = -3.7116578794243558M,  //1.000000M, 
                 Address = "42 Bla Avenue, Madrid", 
                 Rating = 4, 
                 MainMediaPath = "image\\1.jpg" 
@@ -77,8 +79,8 @@ namespace Kebapi.Test
             { 
                 Id = 5, 
                 Name = "The Dirty One", 
-                GeoLat = 4.000000M, 
-                GeoLng = 1.000000M, 
+                GeoLat = 40.42847531520142M,    // 4.000000M, 
+                GeoLng = -3.6942342494440914M,  // 1.000000M, 
                 Address = "10 Banana Place, Madrid", 
                 Rating = 5, 
                 MainMediaPath = "image\\5.jpg" 
@@ -87,8 +89,8 @@ namespace Kebapi.Test
             {
                 Id = 8, 
                 Name = "Star Kebab", 
-                GeoLat = 3.000000M, 
-                GeoLng = 6.000000M, 
+                GeoLat = 40.39588554537884M,    //3.000000M, 
+                GeoLng = -3.702757060605783M,   //6.000000M, 
                 Address = "222 Crispy Crescent, Madrid", 
                 Rating = 4, 
                 MainMediaPath = "image\\8.jpg" 
