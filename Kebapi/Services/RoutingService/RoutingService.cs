@@ -123,12 +123,16 @@ namespace Kebapi.Services.Routing
                 .RequireAuthorization("CanReadUsersHomePolicy");
 
             // Venues
-            // Nothing special here, keeping it in line with Node.js version.
+            // Nothing special here in terms of routing and authorisation, keeping
+            // it in line with Node.js version.
             endpoints.MapGet("/venues/{id}",
                 MapApiMethod<Api.IVenues>(x => x.Get()))
                 .AllowAnonymous();
             endpoints.MapGet("/venues",
                 MapApiMethod<Api.IVenues>(x => x.GetSome()))
+                .AllowAnonymous();
+            endpoints.MapGet("/venues/{id}/distance",
+                MapApiMethod<Api.IVenues>(x => x.GetDistance()))
                 .AllowAnonymous();
 
             // Admin/Maintenance

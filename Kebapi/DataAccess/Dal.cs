@@ -1148,9 +1148,55 @@ namespace Kebapi.DataAccess
             return r;
         }
 
+        public async Task<Dto.DalVenueDistance> GetVenueDistance(
+            int id, double originGeoLat, double originGeoLng,
+            CancellationToken cancellationToken)
+        {
+            Dto.DalVenueDistance r = null;
+            using (var cn = await CreateOpenConnection(_dbName, cancellationToken))
+            {
+                using (var cmd = new SqlCommand(DomainSql.Venues["GetVenueDistance"], cn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@originGeoLat", originGeoLat);
+                    cmd.Parameters.AddWithValue("@originGeoLng", originGeoLng);
+                    using (var reader = await cmd.ExecuteReaderAsync(cancellationToken))
+                    {
+                        if (reader.HasRows) 
+                        {
+                            // Should only ever be 1 row. Only take the first row regardless.
+                            await reader.ReadAsync(cancellationToken);
+                            var idField = reader.GetOrdinal("id");
+                            var nameField = reader.GetOrdinal("name");
+                            var ratingField = reader.GetOrdinal("rating");
+                            var mainMediaPathField = reader.GetOrdinal("main_media_path");
+                            var distanceInMetresField = reader.GetOrdinal("dist_m");
+                            var distanceInKilometresField = reader.GetOrdinal("dist_km");
+                            var distanceInMilesField = reader.GetOrdinal("dist_mi");
+                            r = new Dto.DalVenueDistance()
+                            {
+                                Id = await reader.GetFieldValueAsync<int>(
+                                    idField, cancellationToken),
+                                Name = await reader.GetFieldValueAsync<string>(
+                                    nameField, cancellationToken),
+                                Rating = await reader.GetFieldValueAsync<byte>(
+                                    ratingField, cancellationToken),
+                                MainMediaPath = await reader.GetFieldValueAsync<string>(
+                                    mainMediaPathField, cancellationToken),
+                                DistanceInMetres = await reader.GetFieldValueAsync<double>(
+                                    distanceInMetresField, cancellationToken),
+                                DistanceInKilometres = await reader.GetFieldValueAsync<double>(
+                                    distanceInKilometresField, cancellationToken),
+                                DistanceInMiles = await reader.GetFieldValueAsync<double>(
+                                    distanceInMilesField, cancellationToken),
+                            };
+                        }
+                    }
+                }
+            }
 
-
-
+            return r;
+        }
 
         // Helpers
 

@@ -86,6 +86,59 @@ namespace Kebapi.Services
             return true;
         }
 
+        /// <summary>
+        /// If s can be converted to a valid latitude, returns true
+        /// together with the result in the out parameter, false otherwise.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        // NOTE: Our Dal (as it stands) doesn't need this level of parsing for
+        // latitudes, as it will simply not return a result when a latitude is
+        // invalid. But additionally, a latitude can inadvertantly become invalid
+        // through i18n if we only use double.TryParse. An example is the string
+        // "40,000" which in some cultures is a valid representation of "40.000",
+        // but which when parsed by double.TryParse results in a very valid double:
+        // 40000. This function tightens down on this, allowing us to both be more
+        // specific about the error, and prevent an unnecessary trip to the db server.
+#nullable enable
+        public bool TryParseLatitude(string? s, out double result)
+#nullable restore
+        {
+            result = 0;
+            var validDouble = double.TryParse(s, out double doubleResult);
+            if (!validDouble) return false;
+            if (doubleResult < -90 || doubleResult > 90) return false;
+            result = doubleResult;
+            return true;
+        }
+
+        /// <summary>
+        /// If s can be converted to a valid longitude, returns true
+        /// together with the result in the out parameter, false otherwise.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        // NOTE: Our Dal (as it stands) doesn't need this level of parsing for
+        // longitudes, as it will simply not return a result when a longitude is
+        // invalid. But additionally, a longitude can inadvertantly become invalid
+        // through i18n if we only use double.TryParse. An example is the string
+        // "40,000" which in some cultures is a valid representation of "40.000",
+        // but which when parsed by double.TryParse results in a very valid double:
+        // 40000. This function tightens down on this, allowing us to both be more
+        // specific about the error, and prevent an unnecessary trip to the db server.
+#nullable enable
+        public bool TryParseLongitude(string? s, out double result)
+#nullable restore
+        {
+            result = 0;
+            var validDouble = double.TryParse(s, out double doubleResult);
+            if (!validDouble) return false;
+            if (doubleResult < -180 || doubleResult > 180) return false;
+            result = doubleResult;
+            return true;
+        }
 
         // Some query var helpers when handling http requests.
         // e.g. www.example.com/search?somevartoget=3&anothervartoget=hi

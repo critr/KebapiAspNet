@@ -193,5 +193,80 @@ namespace Kebapi.Api
             return ar;
         }
 
+        /// <summary>
+        /// Tries to get the distance to a venue from a given geographic point 
+        /// expressed in latitude and longitude. The response contains an 
+        /// <see cref="Dto.ApiVenueDistance"/> for the venue with an Id matching 
+        /// the expected <see cref="HttpContext"/> route value of 'id', with 
+        /// distances calculated from the latitude and longitude expressed in the
+        /// query variables 'originLat' and 'originLng'.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> of DTO types
+        /// <see cref="Dto.ApiVenueDistanceResponse"/>.</returns>
+        public async Task<Dto.ApiVenueDistanceResponse> GetDistance() 
+        {
+            _logger.LogDebug(EnterMsg(_componentName, MethodName()));
+
+            // Taking pessimistic approach that assumes failure.
+            HttpStatusCode code = HttpStatusCode.InternalServerError;
+            string msg = null;
+            Dto.ApiVenueDistance apiVenueDistance = null; 
+            List<string> errors = new();
+
+            // Validate expected inputs.
+            var unparsedId = (string)_context.GetRouteValue("id");
+            bool idValid = _inputParser.TryParsePositiveInt(unparsedId, 
+                out int id);
+            var unparsedOriginLat = _inputParser.GetQueryVar(_context, "originLat");
+            bool latValid = _inputParser.TryParseLatitude(unparsedOriginLat, 
+                out double originLat);
+            var unparsedOriginLng = _inputParser.GetQueryVar(_context, "originLng");
+            bool lngValid = _inputParser.TryParseLongitude(unparsedOriginLng, 
+                out double originLng);
+
+            _logger.LogDebug($"unparsedId={unparsedId}");
+            _logger.LogDebug($"id={id}");
+            _logger.LogDebug($"unparsedOriginLat={unparsedOriginLat}");
+            _logger.LogDebug($"originLat={originLat}");
+            _logger.LogDebug($"unparsedOriginLng={unparsedOriginLng}");
+            _logger.LogDebug($"originLng={originLng}");
+
+            if (!idValid) errors.Add(
+                $"Missing an expected integer (greater than 0) argument: id. The value supplied was '{unparsedId}'.");
+            if (!latValid) errors.Add(
+                $"Missing an expected double (between -90 and 90) argument: originLat. The value supplied was '{unparsedOriginLat}'.");
+            if (!lngValid) errors.Add(
+                $"Missing an expected double (between -180 and 180) argument: originLng. The value supplied was '{unparsedOriginLng}'.");
+            if (errors.Count > 0)
+            {
+                msg = "Cannot invoke Get distance to venue.";
+                code = HttpStatusCode.BadRequest;
+            }
+            else
+            {
+                var dr = await _dal.GetVenueDistance(id, originLat, originLng, _context.RequestAborted);
+                if (dr == null)
+                {
+                    msg = $"Get distance to venue did not return a result.";
+                    code = HttpStatusCode.NotFound;
+                }
+                else
+                {
+                    msg = $"Get distance to venue returned a result.";
+                    apiVenueDistance = _dataMapper.MapToApiVenueDistance(dr);
+                    code = HttpStatusCode.OK;
+                }
+            }
+
+            // Result.
+            Dto.ApiVenueDistanceResponse ar = _dataMapper.MapToApiVenueDistanceResponse(_dataMapper.MapToApiStatus(code, msg, errors), apiVenueDistance);
+            await _rrHandler.SetResponse(_context, code, ar);
+
+            _logger.LogDebug($"Response was: {JsonSerializer.Serialize(ar)}");
+            _logger.LogDebug(ExitMsg(_componentName, MethodName()));
+
+            return ar;
+        }
+
     }
 }

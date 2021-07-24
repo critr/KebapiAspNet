@@ -131,7 +131,6 @@ namespace Kebapi.Services
                 Address = o.Address, Rating = o.Rating,
                 MainMediaPath = o.MainMediaPath };
         }
-        
         // Scope: Venues. #DataComposer
         public ApiVenueResponse MapToApiVenueResponse(
             ApiStatus apiStatus, ApiVenue apiV)
@@ -139,6 +138,7 @@ namespace Kebapi.Services
             return new ApiVenueResponse() {
                 ApiStatus = apiStatus, ApiVenue = apiV };
         }
+
         // Scope: Venues, Users. #DataComposer
         public ApiVenuesResponse MapToApiVenuesResponse(
             ApiStatus apiStatus, List<ApiVenue> apiVs)
@@ -147,6 +147,27 @@ namespace Kebapi.Services
                 ApiStatus = apiStatus, ApiVenue = apiVs };
         }
 
+        // Scope: Venues. #Dal-to-Api, #Filter
+        public ApiVenueDistance MapToApiVenueDistance(DalVenueDistance o)
+        {
+            return new ApiVenueDistance()
+            {
+                Id = o.Id,
+                Name = o.Name,
+                Rating = o.Rating,
+                MainMediaPath = o.MainMediaPath,
+                DistanceInMetres = o.DistanceInMetres,
+                DistanceInKilometres = o.DistanceInKilometres,
+                DistanceInMiles = o.DistanceInMiles
+            };
+        }
+        // Scope: Venues. #DataComposer
+        public ApiVenueDistanceResponse MapToApiVenueDistanceResponse(
+            ApiStatus apiStatus, ApiVenueDistance apiVenueDistance) 
+        {
+            return new ApiVenueDistanceResponse() { ApiStatus = apiStatus, 
+                ApiVenueDistance = apiVenueDistance };
+        }
 
     }
 }

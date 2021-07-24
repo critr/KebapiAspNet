@@ -29,6 +29,7 @@ namespace Kebapi.DataAccess
         Task<List<DalUser>> GetUsers(int startRow, int rowCount, CancellationToken cancellationToken);
         Task<DalVenue> GetVenue(int id, CancellationToken cancellationToken);
         Task<DalResultWithAffectedRows> GetVenueCount(CancellationToken cancellationToken);
+        Task<DalVenueDistance> GetVenueDistance(int id, double originGeoLat, double originGeoLng, CancellationToken cancellationToken);
         Task<List<DalVenue>> GetVenues(int startRow, int rowCount, CancellationToken cancellationToken);
         DalAffectedId MapToDalAffectedId(int? id);
         DalAffectedRows MapToDalAffectedRows(int count);

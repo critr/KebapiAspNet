@@ -22,6 +22,10 @@ namespace Kebapi.DataAccess.Sql
     // server, but that brings other advantages/disadvantages.
     internal static class DomainSql
     {
+        // The SRID (Spacial Reference Identifier) that's used by the db when
+        // handling latitudes and longitudes.
+        private const int SridLatLng = 4326;
+
         // Users.
         private static readonly string _commonUserSelectFields = @"
             u.[id], 
@@ -231,6 +235,33 @@ namespace Kebapi.DataAccess.Sql
             {
                 "GetVenueCount",
                 $"SELECT Count([id]) FROM [{DbTable.Venues}];"
+            },
+            {
+                "GetVenueDistance",
+                @$"
+                    WITH venue_distance_to_origin AS
+                    (
+                        SELECT
+                            v.[id],
+                            v.[name],
+                            v.[rating],
+                            v.[main_media_id],
+                            GEOGRAPHY::Point(@originGeoLat, @originGeoLng, {SridLatLng}) origin,
+                            GEOGRAPHY::Point(v.geo_lat, v.geo_lng, {SridLatLng}) dest
+                        FROM [{DbTable.Venues}] v
+                        WHERE v.[id] = @id
+                    )
+                    SELECT 
+                        vdto.[id],
+                        vdto.[name], 
+                        vdto.[rating], 
+                        m.[media_path] main_media_path,
+                        vdto.[origin].STDistance(vdto.[dest]) dist_m,
+                        vdto.[origin].STDistance(vdto.[dest]) / 1000 dist_km,
+                        vdto.[origin].STDistance(vdto.[dest]) / 1609.344 dist_mi
+                    FROM venue_distance_to_origin vdto INNER JOIN [{DbTable.Media}] m
+                    ON vdto.[main_media_id] = m.[id];
+                ;"
             },
 
         };

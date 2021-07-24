@@ -10,6 +10,7 @@ namespace Kebapi.Api
     {
         Task<ApiVenueResponse> Get();
         Task<ApiAffectedRowsResponse> GetCount();
+        Task<ApiVenueDistanceResponse> GetDistance();
         Task<ApiVenuesResponse> GetSome();
     }
 }
