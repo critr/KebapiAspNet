@@ -97,7 +97,7 @@ namespace Kebapi.Api
         /// <summary>
         /// Gets zero, one, or more, <see cref="Dto.ApiVenue"/>(s) dependent on 
         /// a) the venues present in the data set, and b) the expected 
-        /// <see cref="HttpContext"/> route values of 'startRow' (which row of
+        /// <see cref="HttpContext"/> query variables of 'startRow' (which row of
         /// the data set to start at) and 'rowCount' (how many rows of the 
         /// data set to return.)
         /// </summary>

@@ -116,7 +116,7 @@ namespace Kebapi.Api
 
         /// <summary>
         /// Tries to get an <see cref="Dto.ApiUser"/> for the user with a 
-        /// Username matching the expected <see cref="HttpContext"/> route value
+        /// Username matching the expected <see cref="HttpContext"/> query variable
         /// of 'username'.
         /// </summary>
         /// <returns>A <see cref="Task"/> of DTO type
@@ -316,7 +316,7 @@ namespace Kebapi.Api
         /// <summary>
         /// Gets zero, one, or more, <see cref="Dto.ApiUser"/>(s) dependent on 
         /// a) the users present in the data set, and b) the expected 
-        /// <see cref="HttpContext"/> route values of 'startRow' (which row of
+        /// <see cref="HttpContext"/> query variables of 'startRow' (which row of
         /// the data set to start at) and 'rowCount' (how many rows of the 
         /// data set to return.)
         /// </summary>
@@ -373,7 +373,10 @@ namespace Kebapi.Api
         /// <summary>
         /// Gets zero, one, or more, <see cref="Dto.ApiVenue"/>(s) that are the 
         /// favourite venues of the user with an Id matching 
-        /// the expected <see cref="HttpContext"/> route value of 'id'. 
+        /// the expected <see cref="HttpContext"/> route value of 'id'. Results are 
+        /// further constrained by the query variables of 'startRow' (which row of
+        /// the data set to start at) and 'rowCount' (how many rows of the 
+        /// data set to return.)
         /// </summary>
         /// <returns>A <see cref="Task"/> of DTO type
         /// <see cref="Dto.ApiVenuesResponse"/>.</returns>
