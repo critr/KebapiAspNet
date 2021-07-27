@@ -12,7 +12,7 @@
 <br>
 
 <p align="center">
-  <img src="doc/kebab-30deg.svg" width="200" />
+  <img src="Doc/kebab-30deg.svg" width="200" />
 </p>
 
 <br>
@@ -229,7 +229,7 @@ Endpoints for users have access \*restrictions<sup>1</sup>, so not every action 
 <br>
 
 <p align="center">
-  <img src="doc/kebab2.svg" width="200" />
+  <img src="Doc/kebab2.svg" width="200" />
 </p>
 <br>
 
