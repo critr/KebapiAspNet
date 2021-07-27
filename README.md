@@ -24,9 +24,9 @@ For the eagle-eyed, this is an ASP.NET flavoured evolution of the original [Node
 
 The purpose of the API is to implement a small set of operations that can serve discerning kebab-eating clients everywhere.
 
-This time, the API fronts a **SQL Server** database tamed by a home grown data access layer built from `SqlClient` objects only (🙅 NO 🚫 to bloaty Entity Framework here!), a routing service that maps endpoints to API actions while applying roles-based authorisation rules and policies, and an authentication/login service that can authenticate via different sets of credentials. Login and security are built upon salt 'n' hashed crypto goodness carefully wrapped in **JSON Web Tokens**. (`JwtBearer` and `SqlClient` are the only packages used for the core API.) Config is handled by parsable POCOs plucked from the latest `IConfigure`-hoo-ha.
+This time, the API fronts a **SQL Server** database tamed by a **home grown data access layer** built from `SqlClient` objects only (🙅 NO 🚫 to bloaty Entity Framework here!). The layer leverages the **Geography** spatial data type so we get **on-the-fly GPS distance calculations** given any latitude and logitude. There's also a **routing service** that maps endpoints to API actions while applying **roles-based authorisation** rules and policies, and an authentication/login service that can **authenticate via different sets of credentials**. Login and security are built upon **salt 'n' hashed crypto goodness** carefully wrapped in **JSON Web Tokens**. (`JwtBearer` and `SqlClient` are the *only* packages used for the core API.) **Config** is handled by **parsable POCOs** plucked from the latest `IConfigure`-hoo-ha.
 
-On the data side, there are scripted rebuilds of the database schema, including test data loading (all triggerable in Dev Environment from the API), and the database model includes typical normalisation and PK/FK/data integrity constraints. All SQL statements are purposely stowed in their own easy-to-reach classes.
+On the data side, there are **scripted rebuilds** of the database schema, including test data loading (all triggerable in Dev Environment from the API), and the database model includes typical normalisation and PK/FK/data integrity constraints. All SQL statements are purposely stowed in their own easy-to-reach classes.
 
 On the testing side, instead of synthesising my own from-the-ground-up tests as happened with [the Node.js version](https://github.com/critr/kebapi "A seriously tasty REST API"), I've opted to go with a 'proper' testing framework. Enter **Xunit** *and* test fixtures *and* test database replication *and* mock authentication handling *and* some 200 unit tests.
 
@@ -176,6 +176,39 @@ Eateries are referred to as "venues" in the API, with each one representing an e
 
 Venues can be browsed (with any paging arguments), and viewed in detail. A count of the number of venues is also obtainable.
 
+A cool feature is that you can use **real GPS coordinates** to check distances to venues too. Since our test data contains fictional venues, I've overlain them onto *real* GPS latitudes and longitudes. So while the venues continue to be fictitious, their GPS coordinates aren't and you can use them with this API! Check out this image!
+
+<p align="center">
+<a href="Doc/venues-gps-grid.jpeg?raw=true"><img src="Doc/venues-gps-grid.jpeg?raw=true" alt="Map of our test kebab houses superimposed with real GPS latitudes and longitudes" title="How far to kebab nirvana? GPS it with the API!" style="max-width:100%;"></a>
+</p>
+
+Now try the `venues/:venueId/distance` endpoint!
+
+Feel free to use any GPS coordinates from [Google Maps!](https://www.google.com/maps/@40.4065396,-3.6915295,14z?hl=en) But if you want to use the example coordinates in the image, here they are for ease of copy-pasting:
+
+| Point of origin (🔵 blue circles) | Latitude & Longitude
+|----|----
+| 🔵1 | `originLat=40.42313821277501&originLng=-3.7299816289728036`
+| 🔵2 | `originLat=40.40281412801246&originLng=-3.669299331455333`
+| 🔵3 | `originLat=40.38300694594641&originLng=-3.713845459335909`
+
+And for reference:
+
+| Venues (with grid X,Y)| Latitude & Longitude
+|----|----
+| 🛐1 Splendid Kebabs (2,1) | `40.42795262756104, -3.7116578794243558`
+| 🛐2 The Kebaberie (5,2) | `40.42207211170083, -3.6853078577300646`
+| 🛐3 Meats Peeps (7,8) | `40.38268004589479, -3.6687681075408354`
+| 🛐4 The Rotisserie (1,9) | `40.37640325727719, -3.719853607604965`
+| 🛐5 The Dirty One (4,1) | `40.42847531520142, -3.6942342494440914`
+| 🛐6 Bodrum Conundrum (5,5) | `40.40144154092246, -3.684389293040381`
+| 🛐7 Korner Kebab (3,1) | `40.4286059864768, -3.7027314877103286`
+| 🛐8 Star Kebab (3,6) | `40.39588554537884, -3.702757060605783`
+| 🛐9 Kebab Slab (5,7) | `40.38980610735031, -3.6858484147628663`
+| 🛐10 Turku Kebabi (9,0) | `40.43500856795563, -3.650975581906885`
+
+
+\
 Endpoints for venues have access \*restrictions<sup>1</sup>, so not every action is available for every request. In the table below these are abbreviated as:
 <br>&emsp;**AA** - Allow Anonymous (i.e. specifically no restriction).
 <br>&emsp;**IRA** - Is Role Admin.
@@ -185,6 +218,7 @@ Endpoints for venues have access \*restrictions<sup>1</sup>, so not every action
 
 | Method | Endpoint	| Restrictions* | Description | Example
 |----|------------|------------|------------|------------
+| GET | `venues/:venueId/distance?originLat=latitude&originLng=longitude` | AA | Gets the distance in m, km, mi from any GPS origin point specified by the query variables `originLat` and `originLng`, to the exquisite kebab house uniquely identified by `venueId`. | 🗺️ [`https://localhost:5001/venues/1/distance?originLat=40.42313821277501&originLng=-3.7299816289728036`](https://localhost:5001/venues/1/distance?originLat=40.42313821277501&originLng=-3.7299816289728036)
 | GET | `venues/:venueId`| AA | Retrieves details of a single place of kebab worship, by its id. | 🥙[`https://localhost:5001/venues/2`](https://localhost:5001/venues/2)
 | GET | `venues (optional: ?startRow=n&rowCount=n)` | AA | Retrieves a list of fine kebab eateries, optionally beginning at `startRow` and optionally continuing for `rowCount` rows. Defaults are applied if the optional parameters are not supplied. | 🥙1. [`https://localhost:5001/venues`](https://localhost:5001/venues) <br> 🥙2. [`https://localhost:5001/venues?startRow=4`](https://localhost:5001/venues?startRow=4) <br> 🥙3. [`https://localhost:5001/venues?rowCount=2`](https://localhost:5001/venues?rowCount=2) <br> 🥙4. [`https://localhost:5001/venues?startRow=6&rowCount=3`](https://localhost:5001/venues?startRow=6&rowCount=3)
 | GET | `venues/count` | IDE+IRA | Retrieves *the count* (total number) of enticing kebab houses registered. | 🧛[`https://localhost:5001/venues/count`](https://localhost:5001/venues/count)
