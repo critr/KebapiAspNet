@@ -134,6 +134,9 @@ namespace Kebapi.Services.Routing
             endpoints.MapGet("/venues/{id}/distance",
                 MapApiMethod<Api.IVenues>(x => x.GetDistance()))
                 .AllowAnonymous();
+            endpoints.MapGet("/venues/nearby",
+                MapApiMethod<Api.IVenues>(x => x.GetNearby()))
+                .AllowAnonymous();
 
             // Admin/Maintenance
             // These are Admin functions that shouldn't be mapped anywhere other

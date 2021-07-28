@@ -263,7 +263,41 @@ namespace Kebapi.DataAccess.Sql
                     ON vdto.[main_media_id] = m.[id];
                 ;"
             },
-
+            {
+                "GetVenuesNearby",
+                @$"
+                    WITH venues_distances_to_origin AS
+                    (
+                        SELECT
+                            v.[id],
+                            v.[name],
+                            v.[rating],
+                            v.[main_media_id],
+                            GEOGRAPHY::Point(@originGeoLat, @originGeoLng, {SridLatLng}) origin,
+                            GEOGRAPHY::Point(v.geo_lat, v.geo_lng, {SridLatLng}) dest
+                        FROM [{DbTable.Venues}] v
+                    )
+                    SELECT 
+                        vdto.[id],
+                        vdto.[name], 
+                        vdto.[rating], 
+                        m.[media_path] AS main_media_path,
+                        vdto.[origin].STDistance(vdto.[dest]) dist_m,
+                        vdto.[origin].STDistance(vdto.[dest]) / 1000 dist_km,
+                        vdto.[origin].STDistance(vdto.[dest]) / 1609.344 dist_mi
+                    FROM venues_distances_to_origin vdto INNER JOIN [{DbTable.Media}] m
+                    ON vdto.[main_media_id] = m.[id]
+                    WHERE
+                        -- 0 means do not limit search
+                        @withinMetres = 0
+                        OR
+                        -- > 0 means limit search within x meters.
+                        (@withinMetres > 0 AND vdto.[origin].STDistance(vdto.[dest]) <= @withinMetres) 
+                    ORDER BY dist_m ASC, rating ASC
+                    OFFSET @offset ROWS 
+                    FETCH NEXT @limit ROWS ONLY;
+                ;"
+            },
         };
 
     }

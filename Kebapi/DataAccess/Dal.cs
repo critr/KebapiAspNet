@@ -1198,6 +1198,65 @@ namespace Kebapi.DataAccess
             return r;
         }
 
+        public async Task<List<Dto.DalVenueDistance>> GetVenuesNearby(
+            double originGeoLat, double originGeoLng, double withinMetres, 
+            int startRow, int rowCount,
+    CancellationToken cancellationToken)
+        {
+            List<Dto.DalVenueDistance> r = null;
+
+            int offset = ParseStartRow(startRow);
+            int limit = ParseRowCount(rowCount);
+
+            using (var cn = await CreateOpenConnection(_dbName, cancellationToken))
+            {
+                using (var cmd = new SqlCommand(DomainSql.Venues["GetVenuesNearby"], cn))
+                {
+                    cmd.Parameters.AddWithValue("@originGeoLat", originGeoLat);
+                    cmd.Parameters.AddWithValue("@originGeoLng", originGeoLng);
+                    cmd.Parameters.AddWithValue("@withinMetres", withinMetres);
+                    cmd.Parameters.AddWithValue("@offset", offset);
+                    cmd.Parameters.AddWithValue("@limit", limit);
+                    using (var reader = await cmd.ExecuteReaderAsync(cancellationToken))
+                    {
+                        if (reader.HasRows)
+                        {
+                            r = new List<Dto.DalVenueDistance>();
+                            var idField = reader.GetOrdinal("id");
+                            var nameField = reader.GetOrdinal("name");
+                            var ratingField = reader.GetOrdinal("rating");
+                            var mainMediaPathField = reader.GetOrdinal("main_media_path");
+                            var distanceInMetresField = reader.GetOrdinal("dist_m");
+                            var distanceInKilometresField = reader.GetOrdinal("dist_km");
+                            var distanceInMilesField = reader.GetOrdinal("dist_mi");
+                            while (await reader.ReadAsync(cancellationToken))
+                            {
+                                r.Add(new Dto.DalVenueDistance()
+                                {
+                                    Id = await reader.GetFieldValueAsync<int>(
+                                        idField, cancellationToken),
+                                    Name = await reader.GetFieldValueAsync<string>(
+                                        nameField, cancellationToken),
+                                    Rating = await reader.GetFieldValueAsync<byte>(
+                                        ratingField, cancellationToken),
+                                    MainMediaPath = await reader.GetFieldValueAsync<string>(
+                                        mainMediaPathField, cancellationToken),
+                                    DistanceInMetres = await reader.GetFieldValueAsync<double>(
+                                        distanceInMetresField, cancellationToken),
+                                    DistanceInKilometres = await reader.GetFieldValueAsync<double>(
+                                        distanceInKilometresField, cancellationToken),
+                                    DistanceInMiles = await reader.GetFieldValueAsync<double>(
+                                        distanceInMilesField, cancellationToken),
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+
+            return r;
+        }
+
         // Helpers
 
         private static int ParseStartRow(int startRow)

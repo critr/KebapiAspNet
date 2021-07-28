@@ -169,5 +169,16 @@ namespace Kebapi.Services
                 ApiVenueDistance = apiVenueDistance };
         }
 
+        // Scope: Venues. #DataComposer
+        public ApiVenuesNearbyResponse MapToApiVenuesNearbyResponse(
+            ApiStatus apiStatus, List<ApiVenueDistance> apiVenueDistances)
+        {
+            return new ApiVenuesNearbyResponse()
+            {
+                ApiStatus = apiStatus,
+                ApiVenueDistances = apiVenueDistances
+            };
+        }
+
     }
 }

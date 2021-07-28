@@ -69,6 +69,23 @@ namespace Kebapi.Services
         }
 
         /// <summary>
+        /// If s can be converted to a positive double, returns true
+        /// together with the result in the out parameter, false otherwise.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+#nullable enable
+        public bool TryParsePositiveDouble(string? s, out double result)
+#nullable restore
+        {
+            if (double.TryParse(s, out result) && result > 0)
+                return true;
+            else
+                return false;
+        }
+
+        /// <summary>
         /// If s can be parsed, returns true together with the result in the out 
         /// parameter, false otherwise.
         /// </summary>

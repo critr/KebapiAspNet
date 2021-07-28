@@ -11,6 +11,7 @@ namespace Kebapi.Api
         Task<ApiVenueResponse> Get();
         Task<ApiAffectedRowsResponse> GetCount();
         Task<ApiVenueDistanceResponse> GetDistance();
+        Task<ApiVenuesNearbyResponse> GetNearby();
         Task<ApiVenuesResponse> GetSome();
     }
 }

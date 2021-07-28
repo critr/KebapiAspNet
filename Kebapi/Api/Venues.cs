@@ -268,5 +268,78 @@ namespace Kebapi.Api
             return ar;
         }
 
+        public async Task<Dto.ApiVenuesNearbyResponse> GetNearby()
+        {
+            _logger.LogDebug(EnterMsg(_componentName, MethodName()));
+
+            // Taking pessimistic approach that assumes failure.
+            HttpStatusCode code = HttpStatusCode.InternalServerError;
+            string msg = null;
+            List<Dto.ApiVenueDistance> apiVenueDistances = null;
+            List<string> errors = new();
+
+            // Validate expected inputs.
+            var unparsedOriginLat = _inputParser.GetQueryVar(_context, "originLat");
+            bool latValid = _inputParser.TryParseLatitude(unparsedOriginLat,
+                out double originLat);
+            var unparsedOriginLng = _inputParser.GetQueryVar(_context, "originLng");
+            bool lngValid = _inputParser.TryParseLongitude(unparsedOriginLng,
+                out double originLng);
+            // The remaining are optional, always getting a default if invalid/not supplied.
+            var unparsedWithinMetres = _inputParser.GetQueryVar(_context, "withinMetres");
+            bool withinValid = _inputParser.TryParsePositiveDouble(unparsedWithinMetres, 
+                out double withinMetres);
+            if (!withinValid) withinMetres = 0; // 0 is ignore this constraint.
+            int startRow = _inputParser.ParseStartRow(
+                _inputParser.GetQueryVarAsCardinal(_context, "startRow"));
+            int rowCount = _inputParser.ParseRowCount(
+                _inputParser.GetQueryVarAsCardinal(_context, "rowCount"));
+
+            _logger.LogDebug($"unparsedOriginLat={unparsedOriginLat}");
+            _logger.LogDebug($"originLat={originLat}");
+            _logger.LogDebug($"unparsedOriginLng={unparsedOriginLng}");
+            _logger.LogDebug($"originLng={originLng}");
+            _logger.LogDebug($"unparsedWithinMetres={unparsedWithinMetres}");
+            _logger.LogDebug($"withinMetres={withinMetres}");
+            _logger.LogDebug($"startRow={startRow}");
+            _logger.LogDebug($"rowCount={rowCount}");
+
+            if (!latValid) errors.Add(
+                $"Missing an expected double (between -90 and 90) argument: originLat. The value supplied was '{unparsedOriginLat}'.");
+            if (!lngValid) errors.Add(
+                $"Missing an expected double (between -180 and 180) argument: originLng. The value supplied was '{unparsedOriginLng}'.");
+            if (errors.Count > 0)
+            {
+                msg = "Cannot invoke Get venues nearby.";
+                code = HttpStatusCode.BadRequest;
+            }
+            else
+            {
+                var dr = await _dal.GetVenuesNearby(originLat, originLng, 
+                    withinMetres, startRow, rowCount, _context.RequestAborted);
+                if (dr == null)
+                {
+                    msg = $"Get venues nearby did not return a result.";
+                    code = HttpStatusCode.NotFound;
+                }
+                else
+                {
+                    msg = $"Get venues nearby returned a result.";
+                    apiVenueDistances = dr.ConvertAll(new Converter<DalVenueDistance, ApiVenueDistance>(
+                    (du) => { return _dataMapper.MapToApiVenueDistance(du); }));
+                    code = HttpStatusCode.OK;
+                }
+            }
+
+            // Result.
+            Dto.ApiVenuesNearbyResponse ar = _dataMapper.MapToApiVenuesNearbyResponse(_dataMapper.MapToApiStatus(code, msg, errors), apiVenueDistances);
+            await _rrHandler.SetResponse(_context, code, ar);
+
+            _logger.LogDebug($"Response was: {JsonSerializer.Serialize(ar)}");
+            _logger.LogDebug(ExitMsg(_componentName, MethodName()));
+
+            return ar;
+        }
+
     }
 }
