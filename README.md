@@ -82,7 +82,7 @@ If it's your fist run of Kebapi, you'll need to set up the database and get some
 
 `https://localhost:5001/admin/dev/resettestdb`
 
-⚠️ WARNING! All previous data will be blitzed every time you run that command! But it's perfect to use over and over for testing so long as your database doesn't contain data you care about, because it will be reset each time.
+⚠️ CAUTION! All previous data will be blitzed every time you run that command! But it's perfect to use over and over for testing so long as your database doesn't contain data you care about, because it will be reset each time.
 
 In reponse to the reset request, you should get back a very plain `"Success"` message. This means your database has been created, is ready to go, *and* it contains sufficient test data for you to play around with all of the API's endpoints! Hurrah!
 
@@ -153,7 +153,7 @@ So, to get the expected response, authenticate first (or register a new user and
 
 These endpoints are for database management, and only available if your Environment has an `ASPNETCORE_ENVIRONMENT` variable set to ``"Development"``. (In VS you can edit this variable in Project properties under Debug.)
 
-⚠️ WARNING! These endpoints can and will blitz existing data in your database and will run immediately with no further prompt. They are perfect for testing and setting up, but apply due caution.
+⚠️ CAUTION! These endpoints can and will blitz existing data in your database and will run immediately with no further prompt. They are perfect for testing and setting up, but apply due caution.
 
 When running the API for the first time, and assuming you want to use the included test data, do a `GET` on  `https://localhost:44383/admin/dev/resettestdb`. That will create and automagically populate the database with enough to get you going with every endpoint.
 
@@ -216,9 +216,10 @@ Endpoints for venues have access \*restrictions<sup>1</sup>, so not every action
 <br>Applicable logical operators<sup>2</sup> for these restrictions are represented.
 
 
-| Method | Endpoint	| Restrictions* | Description | Example
+| Method | Endpoint<sup>3</sup>	| Restrictions* | Description&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;    | Example
 |----|------------|------------|------------|------------
-| GET | `venues/:venueId/distance?originLat=latitude&originLng=longitude` | AA | Gets the distance in m, km, mi from any GPS origin point specified by the query variables `originLat` and `originLng`, to the exquisite kebab house uniquely identified by `venueId`. | 🗺️ [`https://localhost:5001/venues/1/distance?originLat=40.42313821277501&originLng=-3.7299816289728036`](https://localhost:5001/venues/1/distance?originLat=40.42313821277501&originLng=-3.7299816289728036)
+| GET | `venues/:venueId/ distance?originLat=lat &originLng=long` | AA | Gets the distance in m, km, mi from any GPS origin point specified by the latitude and longitude query variables `originLat` and `originLng`, to the exquisite kebab house uniquely identified by `venueId`. | 🗺️ [`https://localhost:5001/venues/1/distance?originLat=40.42313821277501&originLng=-3.7299816289728036`](https://localhost:5001/venues/1/distance?originLat=40.42313821277501&originLng=-3.7299816289728036)
+| GET | `venues/nearby?originLat=lat &originLng=long` | AA | Gets a ranked *list* of the nearest kebab houses to any given GPS origin point specified by the latitude and longitude query variables `originLat` and `originLng`, and optionally within the radius `withinMetres`, and optionally  beginning at `startRow` and optionally continuing for `rowCount` rows. Defaults are applied if the optional parameters are not supplied. | 🗺️1. [`https://localhost:5001/venues/nearby?originLat=40.42313821277501&originLng=-3.7299816289728036`](https://localhost:44383/venues/nearby?originLat=40.42313821277501&originLng=-3.7299816289728036)<br>🗺️2. [`https://localhost:5001/venues/nearby?originLat=40.42313821277501&originLng=-3.7299816289728036&withinMetres=3500`](https://localhost:44383/venues/nearby?originLat=40.42313821277501&originLng=-3.7299816289728036&withinMetres=3500)<br>
 | GET | `venues/:venueId`| AA | Retrieves details of a single place of kebab worship, by its id. | 🥙[`https://localhost:5001/venues/2`](https://localhost:5001/venues/2)
 | GET | `venues (optional: ?startRow=n&rowCount=n)` | AA | Retrieves a list of fine kebab eateries, optionally beginning at `startRow` and optionally continuing for `rowCount` rows. Defaults are applied if the optional parameters are not supplied. | 🥙1. [`https://localhost:5001/venues`](https://localhost:5001/venues) <br> 🥙2. [`https://localhost:5001/venues?startRow=4`](https://localhost:5001/venues?startRow=4) <br> 🥙3. [`https://localhost:5001/venues?rowCount=2`](https://localhost:5001/venues?rowCount=2) <br> 🥙4. [`https://localhost:5001/venues?startRow=6&rowCount=3`](https://localhost:5001/venues?startRow=6&rowCount=3)
 | GET | `venues/count` | IDE+IRA | Retrieves *the count* (total number) of enticing kebab houses registered. | 🧛[`https://localhost:5001/venues/count`](https://localhost:5001/venues/count)
@@ -238,15 +239,15 @@ Endpoints for users have access \*restrictions<sup>1</sup>, so not every action 
 
 
 
-| Method | Endpoint	| Restrictions* | Description | Example
+| Method | Endpoint<sup>3</sup>	| Restrictions* | Description | Example
 |----|------------|------------|------------|------------
 | POST | `users/auth` | AA | Authenticates a splendid user. <details><summary>Sample `Content-Type:application/json`:</summary><code>{"UsernameOrEmail": "Babs", "Password": "lucy1"}</code></details> |  👮[`https://localhost:5001/users/auth`](https://localhost:5001/users/auth)
 | GET | `users (optional: ?startRow=n&rowCount=n)` | AA | Retrieves a list of fine upstanding users, optionally beginning at `startRow` and optionally continuing for `rowCount` rows. Defaults are applied if the optional parameters are not supplied. | 👪1. [`https://localhost:5001/users`](https://localhost:5001/users) <br> 👪2. [`https://localhost:5001/users?startRow=4`](https://localhost:5001/users?startRow=4) <br> 👪3. [`https://localhost:5001/users?rowCount=2`](https://localhost:5001/users?rowCount=2) <br> 👪4. [`https://localhost:5001/users?startRow=3&rowCount=2`](https://localhost:5001/users?startRow=3&rowCount=2)
 | GET | `users/find?username=a` | AA | Gets the delightful user whose lovingly-crafted username exactly matches `username`. | 👨[`https://localhost:5001/users/find?username=MeatyMan`](https://localhost:5001/users/find?username=MeatyMan)
 | GET | `users/:id` | IRA,IO | Obtains the stupendous user uniquely (and without equal) identified by `id`. |  👩[`https://localhost:5001/users/4`](https://localhost:5001/users/4)
-| GET | `users/:id/favourites (optional: ?startRow=n&rowCount=n)` | IRA,IO | Cunningly retrieves a list of favourite venues, as carefully selected by the thoughtful user uniquely identified by `id`, optionally beginning at `startRow` and optionally continuing for `rowCount` rows. Defaults are applied if the optional parameters are not supplied. |  💗1. [`https://localhost:5001/users/2/favourites`](https://localhost:5001/users/2/favourites) <br> 💗2. [`https://localhost:5001/users/2/favourites?startRow=2`](https://localhost:5001/users/2/favourites?startRow=2) <br> 💗3. [`https://localhost:5001/users/2/favourites?rowCount=2`](https://localhost:5001/users/2/favourites?rowCount=2) <br> 💗4. [`https://localhost:5001/users/2/favourites?startRow=2&rowCount=1`](https://localhost:5001/users/2/favourites?startRow=2&rowCount=1)
-| POST | `users/:id/favourites/{venueId}` | IRA,IO | Adds the endearing venue uniquely identified by `venueId` to the list of favourites of the tasteful user uniquely identified  by `id`.<br>*No JSON is expected in this POST request.* | 💖[`https://localhost:5001/users/1/favourites/1`](https://localhost:5001/users/1/favourites/1)
-| DELETE | `users/:id/favourites/{venueId}` | IRA,IO | Removes the appetising venue uniquely identified by `venueId` from the list of favourites of the discerning user uniquely identified  by `id`. | 💔[`https://localhost:5001/users/1/favourites/1`](https://localhost:5001/users/1/favourites/1)
+| GET | `users/:id/favourites (optional: ?startRow=n &rowCount=n)` | IRA,IO | Cunningly retrieves a list of favourite venues, as carefully selected by the thoughtful user uniquely identified by `id`, optionally beginning at `startRow` and optionally continuing for `rowCount` rows. Defaults are applied if the optional parameters are not supplied. |  💗1. [`https://localhost:5001/users/2/favourites`](https://localhost:5001/users/2/favourites) <br> 💗2. [`https://localhost:5001/users/2/favourites?startRow=2`](https://localhost:5001/users/2/favourites?startRow=2) <br> 💗3. [`https://localhost:5001/users/2/favourites?rowCount=2`](https://localhost:5001/users/2/favourites?rowCount=2) <br> 💗4. [`https://localhost:5001/users/2/favourites?startRow=2&rowCount=1`](https://localhost:5001/users/2/favourites?startRow=2&rowCount=1)
+| POST | `users/:id/favourites/:venueId` | IRA,IO | Adds the endearing venue uniquely identified by `venueId` to the list of favourites of the tasteful user uniquely identified  by `id`.<br>*No JSON is expected in this POST request.* | 💖[`https://localhost:5001/users/1/favourites/1`](https://localhost:5001/users/1/favourites/1)
+| DELETE | `users/:id/favourites/:venueId` | IRA,IO | Removes the appetising venue uniquely identified by `venueId` from the list of favourites of the discerning user uniquely identified  by `id`. | 💔[`https://localhost:5001/users/1/favourites/1`](https://localhost:5001/users/1/favourites/1)
 | GET | `users/:id/status` | IRA,IO | Obtains the account status of the extraordinary user uniquely identified by `id`. (A status can be 'active' or 'inactive', and models a soft delete.) | ❔[`https://localhost:5001/users/2/status`](https://localhost:5001/users/2/status)
 | PATCH | `users/:id/activate` | IRA,IO | Activates the account of the beautiful user uniquely identified by `id`. (Sets the account status to 'active', modelling a soft *un*delete.) | ✔️[`https://localhost:5001/users/2/activate`](https://localhost:5001/users/2/activate)
 | PATCH | `users/:id/deactivate` | IRA,IO | Deactivates the account of the delectable user uniquely identified by `id`. (Sets the account status to 'inactive', modelling a soft delete.) | ❌[`https://localhost:5001/users/2/deactivate`](https://localhost:5001/users/2/deactivate)
@@ -259,6 +260,8 @@ Endpoints for users have access \*restrictions<sup>1</sup>, so not every action 
 <sup>1</sup>Access restrictions to endpoints occasionally favour being illustrative (i.e. "See? We can do this like this!") over being the firm design choices of a more complete project.
 
 <sup>2</sup>Logical operators are abbreviated: `+ = AND` `, = OR`
+
+<sup>3</sup>Ignore spaces. They are there solely for table column widths to format better.
 
 <br>
 
