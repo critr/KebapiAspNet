@@ -34,6 +34,12 @@ Feeling hungry yet? Hope so! Let's tuck in!
 
 <br>
 
+## 🥙 Command Reference
+
+This README is great for an overview of everything and it's where you should start. But for a more detailed exploration of each endpoint, with inputs, outputs, and plenty in between, be sure to dive into the [Kebapi IO Reference](Doc/KebapiIOReference.md).
+
+<br>
+
 ## 🥙 Get started
 
 **tl;dr:**
@@ -88,6 +94,8 @@ In reponse to the reset request, you should get back a very plain `"Success"` me
 
 Jump to the [API Enpoints](#-api-endpoints) or have a quick scan of the config, covered next.
 
+<br>
+
 ## 🥙 Config
 
 The file `appsettings.json` will be your goto for tweaking most settings:
@@ -123,6 +131,8 @@ The file `appsettings.json` will be your goto for tweaking most settings:
 Those settings should be reasonably self-explanatory, but if not, review the comments in `Settings.cs` which is the POCO that maps directly to this config.
 
 There is one setting deliberately omitted from the config file, and which is instead expected to be set up in the Environment. This is just a security choice for this project. So ensure you have an Environment Variable* called `KEBAPI_AUTH_SECRET` and add to it a suitably long and cryptic value, because that value will be used to sign all security tokens for the API. (*In Windows: System Properties > Advanced tab > Environment Variables.)
+
+<br>
 
 ## 🥙 API Endpoints
 Each table below will focus on a set of API actions, show you how to invoke them, and indicate any restrictions for doing so.
