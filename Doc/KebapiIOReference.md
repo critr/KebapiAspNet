@@ -8,8 +8,116 @@ The list isn't exhaustive chiefly because this is a demonstration project, and b
 
 
 
-[INSERT TOC HERE]
+<div id="toc">
 
+[Kebapi IO Reference](#kebapi-io-reference)  
+ [Dev/Admin](#devadmin)  
+  [`admin/dev/createdb`](#admindevcreatedb)  
+   [🔧`https://localhost:5001/admin/dev/createdb`](#httpslocalhost5001admindevcreatedb)  
+  [`admin/dev/dropdb`](#admindevdropdb)  
+   [🔨`https://localhost:5001/admin/dev/dropdb`](#httpslocalhost5001admindevdropdb)  
+  [`admin/dev/resetdb`](#admindevresetdb)  
+   [🛠️`https://localhost:5001/admin/dev/resetdb`](#%EF%B8%8Fhttpslocalhost5001admindevresetdb)  
+  [`admin/dev/resettestdb`](#admindevresettestdb)  
+   [🛠️`https://localhost:5001/admin/dev/resettestdb`](#%EF%B8%8Fhttpslocalhost5001admindevresettestdb)  
+ [Venues](#venues)  
+  [`venues/:venueId/distance?originLat=lat&originLng=long`](#venuesvenueiddistanceoriginlatlatoriginlnglong)  
+   [🗺️
+`https://localhost:5001/venues/1/distance?originLat=40.42313821277501&originLng=-3.7299816289728036`](#%EF%B8%8F-httpslocalhost5001venues1distanceoriginlat4042313821277501originlng-37299816289728036)  
+   [🗺️
+`https://localhost:5001/venues/254/distance?originLat=40.42313821277501&originLng=-3.7299816289728036`](#%EF%B8%8F-httpslocalhost5001venues254distanceoriginlat4042313821277501originlng-37299816289728036)  
+   [🗺️
+`https://localhost:5001/venues/abc/distance?originLat=40.42313821277501&originLng=-3.7299816289728036`](#%EF%B8%8F-httpslocalhost5001venuesabcdistanceoriginlat4042313821277501originlng-37299816289728036)  
+   [🗺️
+`https://localhost:5001/venues/1/distance`](#%EF%B8%8F-httpslocalhost5001venues1distance)  
+   [🗺️
+`https://localhost:5001/venues/1/distance?originLng=-3.7299816289728036`](#%EF%B8%8F-httpslocalhost5001venues1distanceoriginlng-37299816289728036)  
+   [🗺️
+`https://localhost:5001/venues/1/distance?originLat=40.42313821277501`](#%EF%B8%8F-httpslocalhost5001venues1distanceoriginlat4042313821277501)  
+   [🗺️
+`https://localhost:5001/venues/1/distance?originLat=abc&originLng=--99999999999999999`](#%EF%B8%8F-httpslocalhost5001venues1distanceoriginlatabcoriginlng--99999999999999999)  
+  [`venues/nearby?originLat=lat&originLng=long`](#venuesnearbyoriginlatlatoriginlnglong)  
+   🗺️1.
+[`https://localhost:5001/venues/nearby?originLat=40.42313821277501&originLng=-3.7299816289728036`](#%EF%B8%8F1-httpslocalhost5001venuesnearbyoriginlat4042313821277501originlng-37299816289728036)  
+   [🗺️1.
+`https://localhost:5001/venues/nearby?originLat=40.42313821277501&originLng=-3.7299816289728036&withinMetres=3500`](#%EF%B8%8F1-httpslocalhost5001venuesnearbyoriginlat4042313821277501originlng-37299816289728036withinmetres3500)  
+   [🗺️1.
+`https://localhost:5001/venues/nearby?originLat=40.42313821277501&originLng=-3.7299816289728036&rowCount=1`](#%EF%B8%8F1-httpslocalhost5001venuesnearbyoriginlat4042313821277501originlng-37299816289728036rowcount1)  
+   [🗺️1.
+`https://localhost:5001/venues/nearby?originLat=40.42313821277501&originLng=-3.7299816289728036&rowCount=3`](#%EF%B8%8F1-httpslocalhost5001venuesnearbyoriginlat4042313821277501originlng-37299816289728036rowcount3)  
+   [🗺️1.
+`https://localhost:5001/venues/nearby?originLat=40.42313821277501&originLng=-3.7299816289728036&startRow=3&rowCount=3`](#%EF%B8%8F1-httpslocalhost5001venuesnearbyoriginlat4042313821277501originlng-37299816289728036startrow3rowcount3)  
+  [`venues/:venueId`](#venuesvenueid)  
+   [🥙`https://localhost:5001/venues/2`](#httpslocalhost5001venues2)  
+   [🥙`https://localhost:5001/venues/300`](#httpslocalhost5001venues300)  
+   [🥙`https://localhost:5001/venues/abc`](#httpslocalhost5001venuesabc)  
+  [`venues (optional: ?startRow=n&rowCount=n)`](#venues-optional-startrownrowcountn)  
+   [🥙1.
+`https://localhost:5001/venues`](#1-httpslocalhost5001venues)  
+   [🥙2.
+`https://localhost:5001/venues?startRow=4`](#2-httpslocalhost5001venuesstartrow4)  
+   [🥙3.
+`https://localhost:5001/venues?rowCount=2`](#3-httpslocalhost5001venuesrowcount2)  
+   [🥙4.
+`https://localhost:5001/venues?startRow=6&rowCount=3`](#4-httpslocalhost5001venuesstartrow6rowcount3)  
+  [`venues/count`](#venuescount)  
+   [🧛`https://localhost:5001/venues/count`](#httpslocalhost5001venuescount)  
+ [Users](#users)  
+  [`users/auth`](#usersauth)  
+   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth)  
+   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-1)  
+   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-2)  
+   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-3)  
+   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-4)  
+   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-5)  
+   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-6)  
+   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-7)  
+  [`users (optional: ?startRow=n&rowCount=n)`](#users-optional-startrownrowcountn)  
+   [👪1.
+`https://localhost:5001/users`](#1-httpslocalhost5001users)  
+   [👪2.
+`https://localhost:5001/users?startRow=4`](#2-httpslocalhost5001usersstartrow4)  
+   [👪3.
+`https://localhost:5001/users?rowCount=2`](#3-httpslocalhost5001usersrowcount2)  
+   [👪4.
+`https://localhost:5001/users?startRow=3&rowCount=2`](#4-httpslocalhost5001usersstartrow3rowcount2)  
+  [`users/find?username=a`](#usersfindusernamea)  
+   [👨`https://localhost:5001/users/find?username=MeatyMan`](#httpslocalhost5001usersfindusernamemeatyman)  
+   [👨`https://localhost:5001/users/find?username=DontExist`](#httpslocalhost5001usersfindusernamedontexist)  
+  [`users/:id`](#usersid)  
+   [👩`https://localhost:5001/users/4`](#httpslocalhost5001users4)  
+   [👩`https://localhost:5001/users/567`](#httpslocalhost5001users567)  
+   [👩`https://localhost:5001/users/abc`](#httpslocalhost5001usersabc)  
+  [`users/:id/favourites (optional: ?startRow=n &rowCount=n)`](#usersidfavourites-optional-startrown-rowcountn)  
+   [💗1.
+`https://localhost:5001/users/2/favourites`](#1-httpslocalhost5001users2favourites)  
+   [💗2.
+`https://localhost:5001/users/2/favourites?startRow=2`](#2-httpslocalhost5001users2favouritesstartrow2)  
+   [💗3.
+`https://localhost:5001/users/2/favourites?rowCount=2`](#3-httpslocalhost5001users2favouritesrowcount2)  
+   [💗4.
+`https://localhost:5001/users/2/favourites?startRow=2&rowCount=1`](#4-httpslocalhost5001users2favouritesstartrow2rowcount1)  
+  [`users/:id/favourites/:venueId`](#usersidfavouritesvenueid)  
+   [💖`https://localhost:5001/users/1/favourites/1`](#httpslocalhost5001users1favourites1-1)  
+   [💖`https://localhost:5001/users/1/favourites/1`](#httpslocalhost5001users1favourites1-2)  
+   [💔`https://localhost:5001/users/1/favourites/1`](#httpslocalhost5001users1favourites1-1)  
+   [💔`https://localhost:5001/users/1/favourites/1`](#httpslocalhost5001users1favourites1-2)  
+  [`users/:id/status`](#usersidstatus)  
+   [❔`https://localhost:5001/users/2/status`](#httpslocalhost5001users2status)  
+  [`users/:id/activate`](#usersidactivate)  
+   [✔️`https://localhost:5001/users/2/activate`](#%EF%B8%8Fhttpslocalhost5001users2activate)  
+  [`users/:id/deactivate`](#usersiddeactivate)  
+   [❌`https://localhost:5001/users/2/deactivate`](#httpslocalhost5001users2deactivate)  
+  [`users/register`](#usersregister)  
+   [🙋`https://localhost:5001/users/register`](#httpslocalhost5001usersregister)  
+   [🙋`https://localhost:5001/users/register`](#httpslocalhost5001usersregister-1)  
+   [🙋`https://localhost:5001/users/register`](#httpslocalhost5001usersregister-2)  
+   [🙋`https://localhost:5001/users/register`](#httpslocalhost5001usersregister-3)  
+   [🙋`https://localhost:5001/users/register`](#httpslocalhost5001usersregister-4)  
+  [`users/count`](#userscount)  
+   [🧛`https://localhost:5001/users/count`](#httpslocalhost5001userscount)
+
+</div>
 
 
 
