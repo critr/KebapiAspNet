@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Primitives;
 using System;
 
+#nullable enable
+
 namespace Kebapi.Services
 {
     /// <summary>
@@ -58,9 +60,7 @@ namespace Kebapi.Services
         /// <param name="s"></param>
         /// <param name="result"></param>
         /// <returns></returns>
-#nullable enable
         public bool TryParsePositiveInt(string? s, out int result)
-#nullable restore
         {
             if (int.TryParse(s, out result) && result > 0)
                 return true;
@@ -75,9 +75,7 @@ namespace Kebapi.Services
         /// <param name="s"></param>
         /// <param name="result"></param>
         /// <returns></returns>
-#nullable enable
         public bool TryParsePositiveDouble(string? s, out double result)
-#nullable restore
         {
             if (double.TryParse(s, out result) && result > 0)
                 return true;
@@ -94,9 +92,7 @@ namespace Kebapi.Services
         /// <returns></returns>
         // Intended as a place to apply any general sanitisation, stop lists, 
         // parsing, etc. for string inputs to the API.
-#nullable enable
         public bool TryParseString(string? s, out string result)
-#nullable restore
         {
             // Doing a bare minimum for now.
             result = (s ?? "").Trim();
@@ -118,9 +114,7 @@ namespace Kebapi.Services
         // but which when parsed by double.TryParse results in a very valid double:
         // 40000. This function tightens down on this, allowing us to both be more
         // specific about the error, and prevent an unnecessary trip to the db server.
-#nullable enable
         public bool TryParseLatitude(string? s, out double result)
-#nullable restore
         {
             result = 0;
             var validDouble = double.TryParse(s, out double doubleResult);
@@ -145,9 +139,7 @@ namespace Kebapi.Services
         // but which when parsed by double.TryParse results in a very valid double:
         // 40000. This function tightens down on this, allowing us to both be more
         // specific about the error, and prevent an unnecessary trip to the db server.
-#nullable enable
         public bool TryParseLongitude(string? s, out double result)
-#nullable restore
         {
             result = 0;
             var validDouble = double.TryParse(s, out double doubleResult);
