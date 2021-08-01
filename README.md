@@ -165,7 +165,7 @@ These endpoints are for database management, and only available if your Environm
 
 ⚠️ CAUTION! These endpoints can and will blitz existing data in your database and will run immediately with no further prompt. They are perfect for testing and setting up, but apply due caution.
 
-When running the API for the first time, and assuming you want to use the included test data, do a `GET` on  `https://localhost:44383/dev/resettestdb`. That will create and automagically populate the database with enough to get you going with every endpoint.
+When running the API for the first time, and assuming you want to use the included test data, do a `GET` on  `https://localhost:5001/dev/resettestdb`. That will create and automagically populate the database with enough to get you going with every endpoint.
 
 You are of course free to add your own data and use the endpoints only to create a database and add a schema. Said schema will include creation of all of the tables and database constraints needed to run the API.
 
