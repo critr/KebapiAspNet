@@ -98,10 +98,10 @@ The list isn't exhaustive chiefly because this is a demonstration project, and b
    [💗4.
 `https://localhost:5001/users/2/favourites?startRow=2&rowCount=1`](#4-httpslocalhost5001users2favouritesstartrow2rowcount1)  
   [`users/:id/favourites/:venueId`](#usersidfavouritesvenueid)  
+   [💖`https://localhost:5001/users/1/favourites/1`](#httpslocalhost5001users1favourites1)  
    [💖`https://localhost:5001/users/1/favourites/1`](#httpslocalhost5001users1favourites1-1)  
-   [💖`https://localhost:5001/users/1/favourites/1`](#httpslocalhost5001users1favourites1-2)  
-   [💔`https://localhost:5001/users/1/favourites/1`](#httpslocalhost5001users1favourites1-1)  
    [💔`https://localhost:5001/users/1/favourites/1`](#httpslocalhost5001users1favourites1-2)  
+   [💔`https://localhost:5001/users/1/favourites/1`](#httpslocalhost5001users1favourites1-3)  
   [`users/:id/status`](#usersidstatus)  
    [❔`https://localhost:5001/users/2/status`](#httpslocalhost5001users2status)  
   [`users/:id/activate`](#usersidactivate)  
