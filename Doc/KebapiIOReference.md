@@ -12,14 +12,14 @@ The list isn't exhaustive chiefly because this is a demonstration project, and b
 
 [Kebapi IO Reference](#kebapi-io-reference)  
  [Dev/Admin](#devadmin)  
-  [`admin/dev/createdb`](#admindevcreatedb)  
-   [🔧`https://localhost:5001/admin/dev/createdb`](#httpslocalhost5001admindevcreatedb)  
-  [`admin/dev/dropdb`](#admindevdropdb)  
-   [🔨`https://localhost:5001/admin/dev/dropdb`](#httpslocalhost5001admindevdropdb)  
-  [`admin/dev/resetdb`](#admindevresetdb)  
-   [🛠️`https://localhost:5001/admin/dev/resetdb`](#%EF%B8%8Fhttpslocalhost5001admindevresetdb)  
-  [`admin/dev/resettestdb`](#admindevresettestdb)  
-   [🛠️`https://localhost:5001/admin/dev/resettestdb`](#%EF%B8%8Fhttpslocalhost5001admindevresettestdb)  
+  [`dev/createdb`](#admindevcreatedb)  
+   [🔧`https://localhost:5001/dev/createdb`](#httpslocalhost5001admindevcreatedb)  
+  [`dev/dropdb`](#admindevdropdb)  
+   [🔨`https://localhost:5001/dev/dropdb`](#httpslocalhost5001admindevdropdb)  
+  [`dev/resetdb`](#admindevresetdb)  
+   [🛠️`https://localhost:5001/dev/resetdb`](#%EF%B8%8Fhttpslocalhost5001admindevresetdb)  
+  [`dev/resettestdb`](#admindevresettestdb)  
+   [🛠️`https://localhost:5001/dev/resettestdb`](#%EF%B8%8Fhttpslocalhost5001admindevresettestdb)  
  [Venues](#venues)  
   [`venues/:venueId/distance?originLat=lat&originLng=long`](#venuesvenueiddistanceoriginlatlatoriginlnglong)  
    [🗺️
@@ -125,9 +125,9 @@ The list isn't exhaustive chiefly because this is a demonstration project, and b
 
 
 
-### `admin/dev/createdb`
+### `dev/createdb`
 
-#### 🔧[`https://localhost:5001/admin/dev/createdb`](https://localhost:5001/admin/dev/createdb)
+#### 🔧[`https://localhost:5001/dev/createdb`](https://localhost:5001/dev/createdb)
 
 `GET`
 
@@ -140,9 +140,9 @@ Create db named in the config connection string if it doesn't exist.
 [Jump to TOC](#toc)<br><br>
 
 
-### `admin/dev/dropdb`
+### `dev/dropdb`
 
-#### 🔨[`https://localhost:5001/admin/dev/dropdb`](https://localhost:5001/admin/dev/dropdb)
+#### 🔨[`https://localhost:5001/dev/dropdb`](https://localhost:5001/dev/dropdb)
 
 `GET`
 
@@ -155,9 +155,9 @@ Drop db named in the config connection string if it exists.
 [Jump to TOC](#toc)<br><br>
 
 
-### `admin/dev/resetdb`
+### `dev/resetdb`
 
-#### 🛠️[`https://localhost:5001/admin/dev/resetdb`](https://localhost:5001/admin/dev/resetdb)
+#### 🛠️[`https://localhost:5001/dev/resetdb`](https://localhost:5001/dev/resetdb)
 
 `GET`
 
@@ -170,9 +170,9 @@ Perform drop, perform create, then add schema; all to the db named in the config
 [Jump to TOC](#toc)<br><br>
 
 
-### `admin/dev/resettestdb`
+### `dev/resettestdb`
 
-#### 🛠️[`https://localhost:5001/admin/dev/resettestdb`](https://localhost:5001/admin/dev/resettestdb)
+#### 🛠️[`https://localhost:5001/dev/resettestdb`](https://localhost:5001/dev/resettestdb)
 
 `GET`
 

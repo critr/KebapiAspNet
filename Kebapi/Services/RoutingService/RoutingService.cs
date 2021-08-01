@@ -154,22 +154,17 @@ namespace Kebapi.Services.Routing
             // this comment as a reminder. 
             if (env.IsDevelopment())
             {
-                // Choosing to segregate admin functions to an /admin route.
-                // A different world view might keep admins as just a special
-                // case of a user. Mappings would then stay as the usual
-                // /users/{id}/{someaction}.
-
                 // This set of critical database operations don't require authorisation
                 // because authorisation requires database access and we may not even
                 // have a db at this point. Hence above comment and only enabling in dev
                 // environment.
-                endpoints.MapGet("/admin/dev/createdb",
+                endpoints.MapGet("/dev/createdb",
                     MapApiMethod<Api.IAdmins>(x => x.CreateDb()));
-                endpoints.MapGet("/admin/dev/dropdb",
+                endpoints.MapGet("/dev/dropdb",
                     MapApiMethod<Api.IAdmins>(x => x.DropDb()));
-                endpoints.MapGet("/admin/dev/resetdb",
+                endpoints.MapGet("/dev/resetdb",
                     MapApiMethod<Api.IAdmins>(x => x.ResetDb()));
-                endpoints.MapGet("/admin/dev/resettestdb",
+                endpoints.MapGet("/dev/resettestdb",
                     MapApiMethod<Api.IAdmins>(x => x.ResetTestDb()));
             }
 

@@ -48,7 +48,7 @@ This README is great for an overview of everything and it's where you should sta
 dotnet run kebapi
 ```
 
-`https://localhost:5001/admin/dev/resettestdb`
+`https://localhost:5001/dev/resettestdb`
 
 Peruse and use [the endpoints](#-api-endpoints)!
 
@@ -86,7 +86,7 @@ I recommend using [Insomnia](https://insomnia.rest/) for anything you need to po
 
 If it's your fist run of Kebapi, you'll need to set up the database and get some data into it. [In a Dev Environment](#setting-up-in-a-dev-environment), we can do that through the API. Send it this `GET` request:
 
-`https://localhost:5001/admin/dev/resettestdb`
+`https://localhost:5001/dev/resettestdb`
 
 ⚠️ CAUTION! All previous data will be blitzed every time you run that command! But it's perfect to use over and over for testing so long as your database doesn't contain data you care about, because it will be reset each time.
 
@@ -165,7 +165,7 @@ These endpoints are for database management, and only available if your Environm
 
 ⚠️ CAUTION! These endpoints can and will blitz existing data in your database and will run immediately with no further prompt. They are perfect for testing and setting up, but apply due caution.
 
-When running the API for the first time, and assuming you want to use the included test data, do a `GET` on  `https://localhost:44383/admin/dev/resettestdb`. That will create and automagically populate the database with enough to get you going with every endpoint.
+When running the API for the first time, and assuming you want to use the included test data, do a `GET` on  `https://localhost:44383/dev/resettestdb`. That will create and automagically populate the database with enough to get you going with every endpoint.
 
 You are of course free to add your own data and use the endpoints only to create a database and add a schema. Said schema will include creation of all of the tables and database constraints needed to run the API.
 
@@ -174,10 +174,10 @@ As alluded to above, there's just one blanket \*restriction<sup>1</sup> for all 
 
 | Method | Endpoint | Restrictions* | Description | Example
 |----|------------|------------|------------|------------
-| GET | `admin/dev/createdb` | IDE | Create empty db if it doesn't exist. | 🔧[`https://localhost:5001/admin/dev/createdb`](https://localhost:5001/admin/dev/createdb)
-| GET | `admin/dev/dropdb` | IDE | Drop db if it exists. | 🔨[`https://localhost:5001/admin/dev/dropdb`](https://localhost:5001/admin/dev/dropdb)
-| GET | `admin/dev/resetdb` | IDE | On db perform: drop, create, add schema. | 🛠️[`https://localhost:5001/admin/dev/resetdb`](https://localhost:5001/admin/dev/resetdb)
-| GET | `admin/dev/resettestdb` | IDE | On db perform: drop, create, add schema, add test data. | 🛠️[`https://localhost:5001/admin/dev/resettestdb`](https://localhost:5001/admin/dev/resettestdb)
+| GET | `dev/createdb` | IDE | Create empty db if it doesn't exist. | 🔧[`https://localhost:5001/dev/createdb`](https://localhost:5001/dev/createdb)
+| GET | `dev/dropdb` | IDE | Drop db if it exists. | 🔨[`https://localhost:5001/dev/dropdb`](https://localhost:5001/dev/dropdb)
+| GET | `dev/resetdb` | IDE | On db perform: drop, create, add schema. | 🛠️[`https://localhost:5001/dev/resetdb`](https://localhost:5001/dev/resetdb)
+| GET | `dev/resettestdb` | IDE | On db perform: drop, create, add schema, add test data. | 🛠️[`https://localhost:5001/dev/resettestdb`](https://localhost:5001/dev/resettestdb)
 
 
 ### Kebab eateries
