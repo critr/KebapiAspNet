@@ -222,7 +222,6 @@ And for reference:
 Endpoints for venues have access \*restrictions<sup>1</sup>, so not every action is available for every request. In the table below these are abbreviated as:
 <br>&emsp;**AA** - Allow Anonymous (i.e. specifically no restriction).
 <br>&emsp;**IRA** - Is Role Admin.
-<br>&emsp;**IDE** - Is Development Environment.
 <br>Applicable logical operators<sup>2</sup> for these restrictions are represented.
 
 
@@ -232,7 +231,7 @@ Endpoints for venues have access \*restrictions<sup>1</sup>, so not every action
 | GET | `venues/nearby?originLat=lat &originLng=long` | AA | Gets a ranked *list* of the nearest kebab houses to any given GPS origin point specified by the latitude and longitude query variables `originLat` and `originLng`, and optionally within the radius `withinMetres`, and optionally  beginning at `startRow` and optionally continuing for `rowCount` rows. Defaults are applied if the optional parameters are not supplied. | 🗺️1. [`https://localhost:5001/venues/nearby?originLat=40.42313821277501&originLng=-3.7299816289728036`](https://localhost:44383/venues/nearby?originLat=40.42313821277501&originLng=-3.7299816289728036)<br>🗺️2. [`https://localhost:5001/venues/nearby?originLat=40.42313821277501&originLng=-3.7299816289728036&withinMetres=3500`](https://localhost:44383/venues/nearby?originLat=40.42313821277501&originLng=-3.7299816289728036&withinMetres=3500)<br>
 | GET | `venues/:venueId`| AA | Retrieves details of a single place of kebab worship, by its id. | 🥙[`https://localhost:5001/venues/2`](https://localhost:5001/venues/2)
 | GET | `venues (optional: ?startRow=n&rowCount=n)` | AA | Retrieves a list of fine kebab eateries, optionally beginning at `startRow` and optionally continuing for `rowCount` rows. Defaults are applied if the optional parameters are not supplied. | 🥙1. [`https://localhost:5001/venues`](https://localhost:5001/venues) <br> 🥙2. [`https://localhost:5001/venues?startRow=4`](https://localhost:5001/venues?startRow=4) <br> 🥙3. [`https://localhost:5001/venues?rowCount=2`](https://localhost:5001/venues?rowCount=2) <br> 🥙4. [`https://localhost:5001/venues?startRow=6&rowCount=3`](https://localhost:5001/venues?startRow=6&rowCount=3)
-| GET | `venues/count` | IDE+IRA | Retrieves *the count* (total number) of enticing kebab houses registered. | 🧛[`https://localhost:5001/venues/count`](https://localhost:5001/venues/count)
+| GET | `venues/count` | IRA | Retrieves *the count* (total number) of enticing kebab houses registered. | 🧛[`https://localhost:5001/venues/count`](https://localhost:5001/venues/count)
 
 ### Discerning clientele
 Fans of kebabs are referred to (very underwhelmingly) as "users" in the API, with each one of course representing an upstanding person of impeccable taste and manners.
@@ -262,7 +261,7 @@ Endpoints for users have access \*restrictions<sup>1</sup>, so not every action 
 | PATCH | `users/:id/activate` | IRA,IO | Activates the account of the beautiful user uniquely identified by `id`. (Sets the account status to 'active', modelling a soft *un*delete.) | ✔️[`https://localhost:5001/users/2/activate`](https://localhost:5001/users/2/activate)
 | PATCH | `users/:id/deactivate` | IRA,IO | Deactivates the account of the delectable user uniquely identified by `id`. (Sets the account status to 'inactive', modelling a soft delete.) | ❌[`https://localhost:5001/users/2/deactivate`](https://localhost:5001/users/2/deactivate)
 | POST | `users/register` | AA | Registers a supremely intelligent user, so they can use our delectable service. <details><summary>Sample `Content-Type:application/json`:</summary><code>{"Username": "KebabSeeker33",	"Name": "Charlie",	"Surname": "Lees",	"Email": "charlie.lees@example.com",	"Password": "SecretPassword"}</code></details> | 🙋[`https://localhost:5001/users/register`](https://localhost:5001/users/register)
-| GET | `users/count` | IDE+IRA | Retrieves *the count* (total number) of charming users registered. | 🧛[`https://localhost:5001/users/count`](https://localhost:5001/users/count)
+| GET | `users/count` | IRA | Retrieves *the count* (total number) of charming users registered. | 🧛[`https://localhost:5001/users/count`](https://localhost:5001/users/count)
 
 
 

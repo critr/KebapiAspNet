@@ -115,6 +115,10 @@ namespace Kebapi.Services.Routing
             endpoints.MapPost("/users/register",
                 MapApiMethod<Api.IUsers>(x => x.Add()))
                 .AllowAnonymous();
+            // Stat that could be used in an Admin dashboard.
+            endpoints.MapGet("/users/count",
+                MapApiMethod<Api.IUsers>(x => x.GetCount()))
+                .RequireAuthorization("IsInRoleAdminPolicy");
             // Deliberately not fleshed out, just demonstrating another policy.
             // TODO: Decide if we make more of this or at least bring in line with the other actions.
             endpoints.MapGet("/users/home",
@@ -137,6 +141,10 @@ namespace Kebapi.Services.Routing
             endpoints.MapGet("/venues/nearby",
                 MapApiMethod<Api.IVenues>(x => x.GetNearby()))
                 .AllowAnonymous();
+            // Stat that could be used in an Admin dashboard.
+            endpoints.MapGet("/venues/count",
+                MapApiMethod<Api.IVenues>(x => x.GetCount()))
+                .RequireAuthorization("IsInRoleAdminPolicy");
 
             // Admin/Maintenance
             // These are Admin functions that shouldn't be mapped anywhere other
@@ -163,15 +171,6 @@ namespace Kebapi.Services.Routing
                     MapApiMethod<Api.IAdmins>(x => x.ResetDb()));
                 endpoints.MapGet("/admin/dev/resettestdb",
                     MapApiMethod<Api.IAdmins>(x => x.ResetTestDb()));
-
-                // Some stats that could be used in an Admin dashboard.
-                endpoints.MapGet("/users/count",
-                    MapApiMethod<Api.IUsers>(x => x.GetCount()))
-                    .RequireAuthorization("IsInRoleAdminPolicy");
-                endpoints.MapGet("/venues/count",
-                    MapApiMethod<Api.IVenues>(x => x.GetCount()))
-                    .RequireAuthorization("IsInRoleAdminPolicy");
-
             }
 
             return endpoints;
