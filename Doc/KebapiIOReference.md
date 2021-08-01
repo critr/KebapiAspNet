@@ -17,9 +17,9 @@ The list isn't exhaustive chiefly because this is a demonstration project, and b
   [`dev/dropdb`](#devdropdb)  
    [🔨`https://localhost:5001/dev/dropdb`](#httpslocalhost5001devdropdb)  
   [`dev/resetdb`](#devresetdb)  
-   [🛠️`https://localhost:5001/dev/resetdb`](#httpslocalhost5001devresetdb)  
+   [🛠️`https://localhost:5001/dev/resetdb`](#%EF%B8%8Fhttpslocalhost5001devresetdb)  
   [`dev/resettestdb`](#devresettestdb)  
-   [🛠️`https://localhost:5001/dev/resettestdb`](#httpslocalhost5001devresettestdb)  
+   [🛠️`https://localhost:5001/dev/resettestdb`](#%EF%B8%8Fhttpslocalhost5001devresettestdb)  
  [Venues](#venues)  
   [`venues/:venueId/distance?originLat=lat&originLng=long`](#venuesvenueiddistanceoriginlatlatoriginlnglong)  
    [🗺️
