@@ -101,6 +101,12 @@ namespace Kebapi
                     ValidAudience = tvSettings.Audience,
                     // SigningKey should be a long randomly-generated value.
                     ValidateIssuerSigningKey = true,
+                    // Being explicit about the crypto algorithms we will accept, 
+                    // locks down what can be thrown at us maliciously.
+                    ValidAlgorithms = new[]
+                    {
+                      SecurityAlgorithms.HmacSha256
+                    },
                     IssuerSigningKey = new SymmetricSecurityKey(
                         Encoding.UTF8.GetBytes(tvSettings.SigningKey))
                 };
