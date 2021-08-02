@@ -12,16 +12,16 @@ The list isn't exhaustive chiefly because this is a demonstration project, and b
 
 [Kebapi IO Reference](#kebapi-io-reference)  
  [Dev/Admin](#devadmin)  
-  [`dev/createdb`](#devcreatedb)  
+  `Create database` [`dev/createdb`](#devcreatedb)  
    [🔧`https://localhost:5001/dev/createdb`](#httpslocalhost5001devcreatedb)  
-  [`dev/dropdb`](#devdropdb)  
+  `Drop database` [`dev/dropdb`](#devdropdb)  
    [🔨`https://localhost:5001/dev/dropdb`](#httpslocalhost5001devdropdb)  
-  [`dev/resetdb`](#devresetdb)  
+  `Reset database` [`dev/resetdb`](#devresetdb)  
    [🛠️`https://localhost:5001/dev/resetdb`](#%EF%B8%8Fhttpslocalhost5001devresetdb)  
-  [`dev/resettestdb`](#devresettestdb)  
+  `Reset database with test data` [`dev/resettestdb`](#devresettestdb)  
    [🛠️`https://localhost:5001/dev/resettestdb`](#%EF%B8%8Fhttpslocalhost5001devresettestdb)  
  [Venues](#venues)  
-  [`venues/:venueId/distance?originLat=lat&originLng=long`](#venuesvenueiddistanceoriginlatlatoriginlnglong)  
+  `Distance to venue` [`venues/:venueId/distance?originLat=lat&originLng=long`](#venuesvenueiddistanceoriginlatlatoriginlnglong)  
    [🗺️
 `https://localhost:5001/venues/1/distance?originLat=40.42313821277501&originLng=-3.7299816289728036`](#%EF%B8%8F-httpslocalhost5001venues1distanceoriginlat4042313821277501originlng-37299816289728036)  
    [🗺️
@@ -36,7 +36,7 @@ The list isn't exhaustive chiefly because this is a demonstration project, and b
 `https://localhost:5001/venues/1/distance?originLat=40.42313821277501`](#%EF%B8%8F-httpslocalhost5001venues1distanceoriginlat4042313821277501)  
    [🗺️
 `https://localhost:5001/venues/1/distance?originLat=abc&originLng=--99999999999999999`](#%EF%B8%8F-httpslocalhost5001venues1distanceoriginlatabcoriginlng--99999999999999999)  
-  [`venues/nearby?originLat=lat&originLng=long`](#venuesnearbyoriginlatlatoriginlnglong)  
+  `Find venues nearby` [`venues/nearby?originLat=lat&originLng=long`](#venuesnearbyoriginlatlatoriginlnglong)  
    🗺️1.
 [`https://localhost:5001/venues/nearby?originLat=40.42313821277501&originLng=-3.7299816289728036`](#%EF%B8%8F1-httpslocalhost5001venuesnearbyoriginlat4042313821277501originlng-37299816289728036)  
    [🗺️1.
@@ -47,11 +47,11 @@ The list isn't exhaustive chiefly because this is a demonstration project, and b
 `https://localhost:5001/venues/nearby?originLat=40.42313821277501&originLng=-3.7299816289728036&rowCount=3`](#%EF%B8%8F1-httpslocalhost5001venuesnearbyoriginlat4042313821277501originlng-37299816289728036rowcount3)  
    [🗺️1.
 `https://localhost:5001/venues/nearby?originLat=40.42313821277501&originLng=-3.7299816289728036&startRow=3&rowCount=3`](#%EF%B8%8F1-httpslocalhost5001venuesnearbyoriginlat4042313821277501originlng-37299816289728036startrow3rowcount3)  
-  [`venues/:venueId`](#venuesvenueid)  
+  `Venue detail` [`venues/:venueId`](#venuesvenueid)  
    [🥙`https://localhost:5001/venues/2`](#httpslocalhost5001venues2)  
    [🥙`https://localhost:5001/venues/300`](#httpslocalhost5001venues300)  
    [🥙`https://localhost:5001/venues/abc`](#httpslocalhost5001venuesabc)  
-  [`venues (optional: ?startRow=n&rowCount=n)`](#venues-optional-startrownrowcountn)  
+  `List of venues` [`venues (optional: ?startRow=n&rowCount=n)`](#venues-optional-startrownrowcountn)  
    [🥙1.
 `https://localhost:5001/venues`](#1-httpslocalhost5001venues)  
    [🥙2.
@@ -60,19 +60,19 @@ The list isn't exhaustive chiefly because this is a demonstration project, and b
 `https://localhost:5001/venues?rowCount=2`](#3-httpslocalhost5001venuesrowcount2)  
    [🥙4.
 `https://localhost:5001/venues?startRow=6&rowCount=3`](#4-httpslocalhost5001venuesstartrow6rowcount3)  
-  [`venues/count`](#venuescount)  
+  `The Count` [`venues/count`](#venuescount)  
    [🧛`https://localhost:5001/venues/count`](#httpslocalhost5001venuescount)  
  [Users](#users)  
-  [`users/auth`](#usersauth)  
-   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth)  
-   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-1)  
-   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-2)  
-   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-3)  
-   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-4)  
-   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-5)  
-   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-6)  
-   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-7)  
-  [`users (optional: ?startRow=n&rowCount=n)`](#users-optional-startrownrowcountn)  
+  `Authenticate user` [`users/auth`](#usersauth)  
+   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth) `By username`  
+   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-1) `Wrong password`  
+   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-2) `By email`  
+   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-3) `Missing POST data`  
+   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-4) `Incorrect POST data`  
+   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-5) `Missing password`  
+   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-6) `Malformed POST data`  
+   [👮`https://localhost:5001/users/auth`](#httpslocalhost5001usersauth-7) `Wrong body type`  
+  `List of users` [`users (optional: ?startRow=n&rowCount=n)`](#users-optional-startrownrowcountn)  
    [👪1.
 `https://localhost:5001/users`](#1-httpslocalhost5001users)  
    [👪2.
@@ -81,14 +81,14 @@ The list isn't exhaustive chiefly because this is a demonstration project, and b
 `https://localhost:5001/users?rowCount=2`](#3-httpslocalhost5001usersrowcount2)  
    [👪4.
 `https://localhost:5001/users?startRow=3&rowCount=2`](#4-httpslocalhost5001usersstartrow3rowcount2)  
-  [`users/find?username=a`](#usersfindusernamea)  
+  `Find user` [`users/find?username=a`](#usersfindusernamea)  
    [👨`https://localhost:5001/users/find?username=MeatyMan`](#httpslocalhost5001usersfindusernamemeatyman)  
    [👨`https://localhost:5001/users/find?username=DontExist`](#httpslocalhost5001usersfindusernamedontexist)  
-  [`users/:id`](#usersid)  
+  `User detail` [`users/:id`](#usersid)  
    [👩`https://localhost:5001/users/4`](#httpslocalhost5001users4)  
    [👩`https://localhost:5001/users/567`](#httpslocalhost5001users567)  
    [👩`https://localhost:5001/users/abc`](#httpslocalhost5001usersabc)  
-  [`users/:id/favourites (optional: ?startRow=n &rowCount=n)`](#usersidfavourites-optional-startrown-rowcountn)  
+  `List of favourite venues` [`users/:id/favourites (optional: ?startRow=n &rowCount=n)`](#usersidfavourites-optional-startrown-rowcountn)  
    [💗1.
 `https://localhost:5001/users/2/favourites`](#1-httpslocalhost5001users2favourites)  
    [💗2.
@@ -97,24 +97,24 @@ The list isn't exhaustive chiefly because this is a demonstration project, and b
 `https://localhost:5001/users/2/favourites?rowCount=2`](#3-httpslocalhost5001users2favouritesrowcount2)  
    [💗4.
 `https://localhost:5001/users/2/favourites?startRow=2&rowCount=1`](#4-httpslocalhost5001users2favouritesstartrow2rowcount1)  
-  [`users/:id/favourites/:venueId`](#usersidfavouritesvenueid)  
-   [💖`https://localhost:5001/users/1/favourites/1`](#httpslocalhost5001users1favourites1)  
-   [💖`https://localhost:5001/users/1/favourites/1`](#httpslocalhost5001users1favourites1-1)  
-   [💔`https://localhost:5001/users/1/favourites/1`](#httpslocalhost5001users1favourites1-2)  
-   [💔`https://localhost:5001/users/1/favourites/1`](#httpslocalhost5001users1favourites1-3)  
-  [`users/:id/status`](#usersidstatus)  
+  `Add or remove favourite venue` [`users/:id/favourites/:venueId`](#usersidfavouritesvenueid)  
+   [💖`https://localhost:5001/users/1/favourites/1`](#httpslocalhost5001users1favourites1) `Add new`  
+   [💖`https://localhost:5001/users/1/favourites/1`](#httpslocalhost5001users1favourites1-1) `Add existing`  
+   [💔`https://localhost:5001/users/1/favourites/1`](#httpslocalhost5001users1favourites1-2) `Remove existing`  
+   [💔`https://localhost:5001/users/1/favourites/1`](#httpslocalhost5001users1favourites1-3) `Remove removed`  
+  `Account status` [`users/:id/status`](#usersidstatus)  
    [❔`https://localhost:5001/users/2/status`](#httpslocalhost5001users2status)  
-  [`users/:id/activate`](#usersidactivate)  
+  `Activate account` [`users/:id/activate`](#usersidactivate)  
    [✔️`https://localhost:5001/users/2/activate`](#%EF%B8%8Fhttpslocalhost5001users2activate)  
-  [`users/:id/deactivate`](#usersiddeactivate)  
+  `Deactivate account` [`users/:id/deactivate`](#usersiddeactivate)  
    [❌`https://localhost:5001/users/2/deactivate`](#httpslocalhost5001users2deactivate)  
-  [`users/register`](#usersregister)  
-   [🙋`https://localhost:5001/users/register`](#httpslocalhost5001usersregister)  
-   [🙋`https://localhost:5001/users/register`](#httpslocalhost5001usersregister-1)  
-   [🙋`https://localhost:5001/users/register`](#httpslocalhost5001usersregister-2)  
-   [🙋`https://localhost:5001/users/register`](#httpslocalhost5001usersregister-3)  
-   [🙋`https://localhost:5001/users/register`](#httpslocalhost5001usersregister-4)  
-  [`users/count`](#userscount)  
+  `Register a user` [`users/register`](#usersregister)  
+   [🙋`https://localhost:5001/users/register`](#httpslocalhost5001usersregister) `Details valid`  
+   [🙋`https://localhost:5001/users/register`](#httpslocalhost5001usersregister-1) `Username exists`  
+   [🙋`https://localhost:5001/users/register`](#httpslocalhost5001usersregister-2) `Email exists`  
+   [🙋`https://localhost:5001/users/register`](#httpslocalhost5001usersregister-3) `Username short`  
+   [🙋`https://localhost:5001/users/register`](#httpslocalhost5001usersregister-4) `Multiple details invalid`  
+  `The Count` [`users/count`](#userscount)  
    [🧛`https://localhost:5001/users/count`](#httpslocalhost5001userscount)
 
 </div>
