@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
 namespace Kebapi.Services.Hashing
@@ -67,7 +68,7 @@ namespace Kebapi.Services.Hashing
             // var algorithmName = hashBundleComponents[0].Trim(); 
             var iterations = Int32.Parse(hashBundleComponents[1].Trim());
             var salt = Convert.FromBase64String(hashBundleComponents[2].Trim());
-            var hash = hashBundleComponents[3].Trim();
+            var hash = Convert.FromBase64String(hashBundleComponents[3].Trim()); 
 
             var db = new Rfc2898DeriveBytes(value,
                                             salt,
@@ -75,12 +76,43 @@ namespace Kebapi.Services.Hashing
                                             HashAlgorithmName.SHA512);
             byte[] testHash = db.GetBytes(32);
 
-            if (Convert.ToBase64String(testHash) != hash)
-                return false;
-
-            return true;
+            return UnoptimisedEqual(testHash, hash); 
         }
 
+        /// <summary>
+        /// Compares the equality of two byte arrays. Specifically written so that
+        /// the loop is not optimized. 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>True if equal, false otherwise.</returns>
+        // Brute force attacks can take advantage of equality timing. E.g. a vanilla
+        // string comparison (string a == string b) will fail as soon as the first
+        // byte doesn't match. That can give an indication of how unsuccessful a
+        // particular attack was because it may have failed quicker or slower than a
+        // previous attack, hence giving the attacker an opportunity to fine tune.
+        // The purpose of an unoptimised comparison, is that every single comparison
+        // always takes the same amount of time. Here, all iterable bytes are alwayss
+        // compared before returning a result, and any null/length comparison failures
+        // should also complete consistently.
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+        static bool UnoptimisedEqual(byte[] a, byte[] b)
+        {
+            if (a == null && b == null)
+            {
+                return true;
+            }
+            if (a == null || b == null || a.Length != b.Length)
+            {
+                return false;
+            }
+            var areEqual = true;
+            for (var i = 0; i < a.Length; i++)
+            {
+                areEqual &= (a[i] == b[i]);
+            }
+            return areEqual;
+        }
 
     }
 }
